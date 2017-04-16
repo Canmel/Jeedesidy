@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meedesidy.dao.RoleDao">
+	<resultMap id="Role" type="com.meedesidy.entity.Role">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, remark
+	</sql>
+	<select id="pageQuery" resultMap="Role" parameterType="com.meedesidy.entity.Role">
+		select
+		<include refid="Base_Column_List" />
+		from role
+		where 1=1
+	</select>
+
+	<select id="getAll" resultMap="Role">
+		select
+		<include refid="Base_Column_List" />
+		from menu
+	</select>
+	
+	<select id="get" resultMap="Role">
+		select
+		<include refid="Base_Column_List"/>
+		from menu
+		where id = #{id}
+	</select>
+	
+	<insert id="add">
+	<selectKey order="AFTER" resultType="int" keyProperty="id"> SELECT LAST_INSERT_ID() </selectKey>
+		insert into role
+		<trim suffixOverrides="," suffix=")" prefix="(">
+			<if test="name != null"> name, </if>
+			<if test="remark != null"> remark, </if>
+		</trim>
+		values
+		<trim suffixOverrides="," suffix=")" prefix="(">
+			<if test="name != null"> #{name}, </if>
+			<if test="remark != null"> #{remark}, </if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		update menu
+		<set>
+			<if test="name != null"> name = #{name}, </if>
+			<if test="remark != null"> remark = #{remark}, </if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="query" resultMap="Role" parameterType="com.meedesidy.entity.Role">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			`menu`
+		WHERE
+			1 = 1
+	</select>
+</mapper>
