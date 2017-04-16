@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meedesidy.dao.MenuDao">
+	<resultMap id="Menu" type="com.meedesidy.entity.Menu">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="resouce" property="resouce" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="INTEGER" />
+		<result column="createAt" property="createAt" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, resouce, remark, pid, createdAt, type
+	</sql>
+	<select id="pageQuery" resultMap="Menu" parameterType="com.meedesidy.entity.Menu">
+		select
+		<include refid="Base_Column_List" />
+		from menu
+		where 1=1
+	</select>
+
+	<select id="getAll" resultMap="Menu">
+		select
+		<include refid="Base_Column_List" />
+		from menu
+	</select>
+	
+	<select id="get" resultMap="Menu">
+		select
+		<include refid="Base_Column_List"/>
+		from menu
+		where id = #{id}
+	</select>
+	
+	<insert id="add">
+	<selectKey order="AFTER" resultType="int" keyProperty="id"> SELECT LAST_INSERT_ID() </selectKey>
+		insert into menu
+		<trim suffixOverrides="," suffix=")" prefix="(">
+			<if test="name != null"> name, </if>
+			<if test="resouce != null"> resouce, </if>
+			<if test="createdAt != null"> createdAt, </if>
+			<if test="remark != null"> remark, </if>
+			<if test="pid != null"> pid, </if>
+			<if test="type != null"> type, </if>
+		</trim>
+		values
+		<trim suffixOverrides="," suffix=")" prefix="(">
+			<if test="name != null"> #{name}, </if>
+			<if test="resouce != null"> #{resouce}, </if>
+			<if test="createdAt != null"> #{createdAt}, </if>
+			<if test="remark != null"> #{remark}, </if>
+			<if test="pid != null"> #{pid}, </if>
+			<if test="type != null"> #{type}, </if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		update menu
+		<set>
+			<if test="name != null"> name = #{name}, </if>
+			<if test="resouce != null"> resouce = #{resouce}, </if>
+			<if test="createdAt != null"> createdAt = #{createdAt}, </if>
+			<if test="remark != null"> remark = #{remark}, </if>
+			<if test="pid != null"> pid = #{pid}, </if>
+			<if test="type != null"> type = #{type}, </if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="query" resultMap="Menu" parameterType="com.meedesidy.entity.Menu">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			`menu`
+		WHERE
+			1 = 1
+			<if test="type != null">and type = #{type}</if>
+	</select>
+</mapper>
