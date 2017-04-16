@@ -11,7 +11,7 @@
 						<label>角色名称</label>
 						<input type="text" aria-controls="editable-sample" class="form-control medium" ng-model="searchParams.name">
 						<button type="button" class="btn  btn-info left-space" ng-click="search()"><i class="fa fa-search"></i>查询</button>
-						<a id="editable-sample_new" class="btn btn-success green" ui-sref="newMenu"> <i class="fa fa-plus"></i>创建</a>
+						<a id="editable-sample_new" class="btn btn-success green" ui-sref="newRole"> <i class="fa fa-plus"></i>创建</a>
 					</div>
 				</div>
 				<table class="table table-striped table-advance table-hover">
@@ -26,13 +26,11 @@
 					<tbody>
 						<tr ng-repeat="v in datas">
 							<td>{{v.name}}</td>
-							<td class="hidden-phone">{{v.resouce}}</td>
-							<td>{{v.pid}}</td>
-							<td>{{v.type == "TOPMENU" ? "一级菜单" : "二级菜单"}}</td>
-							<td>{{v.createdAt | datetime}}</td>
+							<td class="hidden-phone">{{v.id}}</td>
+							<td>{{v.id}}</td>
 							<td>
 								<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
-								<button class="btn btn-primary btn-xs" ui-sref="editMenu({id:v.id})" ><i class="fa fa-pencil"></i></button>
+								<button class="btn btn-primary btn-xs" ui-sref="editRole({id:v.id})" ><i class="fa fa-pencil"></i></button>
 							</td>
 						</tr>
 					</tbody>

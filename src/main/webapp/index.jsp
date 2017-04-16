@@ -22,9 +22,10 @@
 		<script src="static/js/controller/userController.js" ></script>
 		<script src="static/js/controller/menuController.js" ></script>
 		<script src="static/js/controller/siderbarController.js" ></script>
+		<script src="static/js/controller/roleController.js"></script>
 		<script src="static/filter/angular-filter.js"></script>
 		<script src="static/js/service/pageQuery.js"></script>
-		 
+
 		<link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />		
 		<link rel="stylesheet" href="static/css/bootstrap/bootstrap-reset.css">
 		<link rel="stylesheet" href="static/font-awesome/css/font-awesome.css" />
@@ -57,7 +58,7 @@
 							<i class="fa fa-book"></i> 
 							<span>{{v.name}}</span>
 						</a>
-						<ul class="sub" style="display: ; overflow: hidden;" ng-if="true">
+						<ul class="sub" style="overflow: hidden;" ng-if="true">
 							<li ng-repeat="m in menus" ng-if="m.pid==v.id" ng-click="go($event, m.resouce)"><a style="cursor: pointer;">{{m.name}}</a></li>
 						</ul>
 					</li>
