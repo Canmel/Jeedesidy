@@ -1,7 +1,7 @@
 package com.meedesidy.controler;
 
 import com.meedesidy.entity.BaseEntity;
-import com.meedesidy.entity.User;
+import com.meedesidy.entity.Role;
 import com.meedesidy.service.BaseService;
 import com.meedesidy.service.IRoleService;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class RoleController extends BaseController {
 	private IRoleService roleService;
 
 	@RequestMapping(value = "pageQuery")
-	public @ResponseBody Object pageQuery(User entity) throws Exception {
+	public @ResponseBody Object pageQuery(Role entity) throws Exception {
 		return super.pageQuery(entity);
 	}
 
@@ -30,12 +30,12 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping(value = "get")
-	public @ResponseBody Object get(User entity){
+	public @ResponseBody Object get(Role entity){
 		return getService().get(entity);
 	}
 	
 	@RequestMapping(value = "save")
-	public @ResponseBody Object saveObject(@Valid User entity, BindingResult result){
+	public @ResponseBody Object saveObject(@Valid Role entity, BindingResult result){
 		if(result.hasErrors()){
 			return "error";
 		}
