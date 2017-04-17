@@ -82,4 +82,15 @@ meedesidy.controller('role', ['$scope', '$http', '$state', '$stateParams', funct
             }
         });
     };
+
+    $http({
+        method: 'post',
+        url: '/meedesidy/menu/all',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).success(function (resp) {
+        console.log(resp);
+        $scope.allMenus = resp
+    });
 }]);
