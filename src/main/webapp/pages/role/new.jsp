@@ -24,9 +24,9 @@
             <label class="col-sm-2 control-label">菜单</label>
             <div class="col-sm-10">
                 <label  ng-repeat="v in allMenus">
-                <input type="checkbox" name="{{v.id}}">{{v.name}}
+                    <input type="checkbox" value="{{v.id}}" name="menu">{{v.name}}
                 </label>
-            </label>
+            </div>
         </div>
         <div class="text-center">
             <button type="submit" ng-disabled="RoleForm.$invalid" class="btn btn-info">保存</button>

@@ -5,7 +5,16 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
+
+		<collection property="menu" javaType="ArrayList" column="{id = id}" select="getRole" />
 	</resultMap>
+
+	<resultMap id="menuMap" type="com.meedesidy.entity.Menu">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="resouce" property="resouce" jdbcType="VARCHAR" />
+	</resultMap>
+
 	<sql id="Base_Column_List">
 		id, name, remark
 	</sql>
@@ -14,6 +23,10 @@
 		<include refid="Base_Column_List" />
 		from role
 		where 1=1
+	</select>
+
+	<select id="getRole" resultMap="menuMap" parameterType="com.meedesidy.entity.Menu">
+		select m.* from menu m,role_menu rm where m.id = rm.role_id and rm.role_id = #{id}
 	</select>
 
 	<select id="getAll" resultMap="Role">

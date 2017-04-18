@@ -2,6 +2,8 @@ package com.meedesidy.entity;
 
 import com.meedesidy.entity.enumtype.MenuType;
 
+import java.util.List;
+
 public class Menu extends BaseEntity{
 	
 	public String resouce;
@@ -9,6 +11,16 @@ public class Menu extends BaseEntity{
 	public Integer pid;
 	
 	public MenuType type;
+
+	public List<Role> role;
+
+	public List<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(List<Role> role) {
+		this.role = role;
+	}
 
 	public MenuType getType() {
 		return type;
