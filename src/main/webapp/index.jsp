@@ -38,7 +38,7 @@
 	<body ng-app='meedesidy'>
 		<section>
 			<!-- head start -->
-			<header class="header white-bg">
+			<header class="header white-bg ">
 				<div class="sidebar-toggle-box">
 				  <div  data-placement="right" class="fa fa-bars tooltips"></div>
 				</div>
@@ -68,7 +68,7 @@
       		<!-- END SIDEBAR -->
 		  <section id="main-content">
 	  		<!-- BEGIN WRAPPER  -->
-	        	<section class="wrapper">
+	        	<section class="wrapper" style="font-size: 12px;">
 	        		<div ui-view></div>
 	        	</section>
 			<!-- END WRAPPER  -->

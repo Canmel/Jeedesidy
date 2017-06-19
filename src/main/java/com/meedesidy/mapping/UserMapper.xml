@@ -9,10 +9,24 @@
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="age" property="age" jdbcType="INTEGER" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		
+		<collection property="roles" javaType="ArrayList" column="{id = id}" select="getRole" />
 	</resultMap>
+	
+	<resultMap id="roleMap" type="com.meedesidy.entity.Role">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+	
 	<sql id="Base_Column_List">
 		id, name, password, createdAt, remark, age, phone
 	</sql>
+	
+	<select id="getRole" resultMap="roleMap" parameterType="com.meedesidy.entity.Role">
+        select r.id, r.name, r.remark from role r,user_role ur where r.id = ur.role_id and ur.user_id = #{id}
+    </select>
+    
 	<select id="pageQuery" resultMap="User">
 		select
 		<include refid="Base_Column_List" />

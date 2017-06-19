@@ -20,6 +20,7 @@
 						<tr>
 							<th><i class="fa fa-bullhorn"></i> 姓名</th>
 							<th class="hidden-phone"><i class="fa fa-question-circle"></i>年龄</th>
+							<th><i class="fa fa-question-circle"></i>角色</th>
 							<th><i class="fa fa-bookmark"></i>创建时间</th>
 							<th>操作</th>
 						</tr>
@@ -28,6 +29,7 @@
 						<tr ng-repeat="v in datas">
 							<td>{{v.name}}</td>
 							<td class="hidden-phone">{{v.age}}</td>
+							<td>{{v.roles | showRole}}</td>
 							<td>{{v.createdAt | datetime}}</td>
 							<td>
 								<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>

@@ -40,7 +40,6 @@ meedesidy.controller('sidebar', [ '$scope', '$http', '$state', '$stateParams', f
 	$scope.go = function($event, url) {
 		$(".sidebar-menu").find('li').removeClass('active');
 		$(".sidebar-menu").find('a').removeClass('active');
-		console.info($($event.target).parents("li").eq(1).find("a").addClass("active"));
 		$($event.target).parent().addClass('active');
 		$state.go(url);
 	}

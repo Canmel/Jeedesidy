@@ -34,6 +34,15 @@
 				<input type="text" class="form-control" ng-model="user.remark">
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">角色</label>
+			<div class="col-sm-10">
+				<div style="display: inline-flex; margin: 5px;" ng-repeat="v in allRole">
+					<input type="checkbox" class="checkbox" ng-model="role_ids" ng-click="check_role({id:v.id})" value="{{v.id}}" ng-checked="isSelected(v.id)">
+					<label><span style="line-height: 30px;">{{v.name}}</span></label>
+				</div>
+			</div>
+		</div>
 		<div class="text-center">
 			<button type="submit" ng-disabled="userForm.$invalid" class="btn btn-info">保存</button>
 			<button type="button" class="btn btn-default" ui-sref="user">返回</button>			

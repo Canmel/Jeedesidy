@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 @Controller

@@ -6,7 +6,7 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 
-		<collection property="menu" javaType="ArrayList" column="{id = id}" select="getRole" />
+		<collection property="menu" javaType="ArrayList" column="{id = id}" select="getMenu" />
 	</resultMap>
 
 	<resultMap id="menuMap" type="com.meedesidy.entity.Menu">
@@ -25,14 +25,14 @@
 		where 1=1
 	</select>
 
-	<select id="getRole" resultMap="menuMap" parameterType="com.meedesidy.entity.Menu">
+	<select id="getMenu" resultMap="menuMap" parameterType="com.meedesidy.entity.Menu">
 		select m.* from menu m,role_menu rm where m.id = rm.role_id and rm.role_id = #{id}
 	</select>
 
 	<select id="getAll" resultMap="Role">
 		select
 		<include refid="Base_Column_List" />
-		from menu
+		from role
 	</select>
 	
 	<select id="get" resultMap="Role">

@@ -1,5 +1,6 @@
 package com.meedesidy.controler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import javax.ws.rs.GET;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meedesidy.entity.BaseEntity;
@@ -38,8 +40,10 @@ public class UserController extends BaseController {
 	}
 	
 	@RequestMapping(value = "save")
-	public @ResponseBody Object saveObject(@Valid User entity, BindingResult result){
+	public @ResponseBody Object saveObject(@Valid User entity, @RequestParam(value = "role_ids[]") ArrayList<Integer> role_ids, BindingResult result){
+		System.out.println(role_ids);
 		if(result.hasErrors()){
+			System.out.println(result.getAllErrors());
 			return "error";
 		}
 		return super.save(entity);

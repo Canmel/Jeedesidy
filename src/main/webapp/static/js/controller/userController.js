@@ -15,7 +15,7 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 	
 //	检查参数id
 	if($stateParams.id){
-		$http({
+		$http({	
 			method: 'get',
 			url: '/meedesidy/user/get',
 			params: {id: $stateParams.id}
@@ -24,7 +24,25 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 		}),(function(resp){
 			$scope.user = {"id":1,"name":"李德健","createAt":null,"remark":"最好的人","pindex":0,"psize":0,"ptotal":0,"password":"123123","createdAt":"2017-03-01","age":26,"phone":"13622844833"}
 			console.error(resp);
-		})
+		});
+		
+		$http.get("/meedesidy/role/all").then(function (response) {
+	        $scope.allRole = response.data;
+	        $scope.selectedRole = [];
+			$($scope.user.roles).each(function(index, item) {
+				$scope.selectedRole.push(item.id);
+			});
+	    });
+	}
+	
+	$scope.check_role = function(param) {
+		console.info(param.id);
+		if ($scope.user.roles != undefined && $scope.size != 0){
+		}
+	}
+	
+	$scope.isSelected = function(id){
+        return $scope.selectedRole.indexOf(id)>=0;
 	}
 	
 //	编辑用户 传参数
@@ -59,7 +77,9 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 	
 //	提交保存表单
 	$scope.processForm = function(){
-		$scope.user == {};
+		$scope.user.roles = []
+		$scope.user.role_ids = [1,2]
+//		$scope.user == {};
 		$http({
 			method: "post",
 			url: "/meedesidy/user/save",
@@ -89,3 +109,17 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 	$scope.total = $scope.total == null ? 0 : $scope.total
 	$scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
 }]);
+
+meedesidy.filter('showRole', function() {
+	return function(roles) {
+		var result = "["
+		$(roles).each(function(index, item) {
+			result += item.name;
+			result += ",";
+		});
+		if(result.length > 1){
+			result = result.substring(0, result.length - 1);
+		}
+		return result + "]";
+    }
+})

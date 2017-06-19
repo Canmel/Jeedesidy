@@ -252,7 +252,7 @@ a,a:hover,a:focus {
 	width: 210px;
 	height: 100%;
 	position: fixed;
-	background: #2a3542;
+	background: #333;
 }
 
 #sidebar ul li {
@@ -431,8 +431,8 @@ ul.sidebar-menu li a.active i {
 }
 
 .white-bg {
-	background: #72d0eb;
-	border-bottom: 1px solid #a0d9ea;
+	background: #24292e;
+	border-bottom: 1px solid #24292e;
 }
 
 .wrapper {
@@ -5471,7 +5471,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 /*footer*/
 
 .site-footer {
-	background: #5b6e84;
+	background: #24292e;
 	color: #fff;
 	padding: 10px 0;
 }
@@ -6684,4 +6684,8 @@ a.guest-on i {
 
 .left-space {
 	margin-left: 5px;
+}
+
+.meedesidy_bg_header {
+	background-color: #24292e;	
 }
