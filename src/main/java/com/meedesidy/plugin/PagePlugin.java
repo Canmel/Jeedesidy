@@ -169,7 +169,7 @@ public class PagePlugin implements Interceptor {
 	private String generatePageSql(String sql, BaseEntity base) {
 		if (base != null && Tools.notEmpty(dialect)) {
 			StringBuffer pageSql = new StringBuffer();
-			if ("postgres".equals(dialect)) {
+			if ("mysql".equals(dialect)) {
 				int curPage = base.pindex-1;
 				int offsetNum = curPage * base.psize; 
 				pageSql.append(sql);

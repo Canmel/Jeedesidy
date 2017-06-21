@@ -24,23 +24,23 @@
 	</sql>
 	
 	<select id="getRole" resultMap="roleMap" parameterType="com.meedesidy.entity.Role">
-        select r.id, r.name, r.remark from role r,user_role ur where r.id = ur.role_id and ur.user_id = #{id}
+        SELECT r.id, r.name, r.remark FROM role r,user_role ur WHERE r.id = ur.role_id AND ur.user_id = #{id}
     </select>
     
 	<select id="pageQuery" resultMap="User">
-		select
+		SELECT
 		<include refid="Base_Column_List" />
-		from user
-		where 1=1
+		FROM user
+		WHERE 1=1
 		<if test="name != null and name != ''"> and name like concat(concat('%',#{name}),'%')</if>
 	</select>
 	
 	<select id="get" resultMap="User">
-		select 
+		SELECT 
 		<include refid="Base_Column_List"/>
-		from user
-		where 1=1
-		and id = #{id}
+		FROM user
+		WHERE 1=1
+		AND id = #{id}
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.meedesidy.entity.User">
@@ -76,4 +76,35 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<insert id="saveRole" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="Integer" keyProperty="id" order="AFTER">  
+	        SELECT LAST_INSERT_ID() 
+	    </selectKey>
+	    INSERT INTO user_role (user_id,role_id) VALUES 
+	    <foreach collection="roles" item="item" index="index" separator="," >  
+	        (#{user_id},#{item.id})  
+	    </foreach>  
+	</insert>
+	
+	<delete id="delRole" parameterType="com.meedesidy.entity.User">
+		DELETE FROM user_role WHERE 1=1
+		AND user_id = #{id}
+	</delete>
+	
+	<delete id="del">
+		DELETE FROM user WHERE 1=1
+		<foreach collection="array" index="index" item="item" open="AND ID IN(" separator="," close=")">
+        #{item}
+        </foreach>
+	</delete>
+	
+	<select id="query" resultMap="User">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user
+		WHERE 1=1 
+		AND id = #{id}
+	</select>
+	
 </mapper>

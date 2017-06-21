@@ -12,4 +12,11 @@ public class Role extends BaseEntity{
     public void setMenu(List<Menu> menu) {
         this.menu = menu;
     }
+    
+    public Role(Integer id) {
+		this.id = id;
+	}
+    
+    public Role() {
+	}
 }

@@ -1,5 +1,4 @@
 meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-//	配置基本路由
 	$stateProvider.state('newUser',{
 		url: '/user/new',
 		templateUrl: 'pages/user/new.jsp',
@@ -12,7 +11,6 @@ meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 }]);
 
 meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'pageQuery' , function($scope, $http, $state, $stateParams, pageQuery) {
-	
 //	检查参数id
 	if($stateParams.id){
 		$http({	
@@ -33,12 +31,11 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 				$scope.selectedRole.push(item.id);
 			});
 	    });
-	}
-	
-	$scope.check_role = function(param) {
-		console.info(param.id);
-		if ($scope.user.roles != undefined && $scope.size != 0){
-		}
+	}else{
+		$http.get("/meedesidy/role/all").then(function (response) {
+			$scope.selectedRole = [];
+	        $scope.allRole = response.data;
+	    });
 	}
 	
 	$scope.isSelected = function(id){
@@ -75,21 +72,37 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 
 	};
 	
+	$scope.delUser = function(param){
+		console.info(param.id);
+		$.confirm("确认删除？", function() {
+			$http.delete("/meedesidy/user/" + param.id).then(function (resp) {
+				$scope.search();
+			});
+		});
+	}
+	
 //	提交保存表单
 	$scope.processForm = function(){
 		$scope.user.roles = []
-		$scope.user.role_ids = [1,2]
-//		$scope.user == {};
+		$scope.user.role_ids = []
+		$("input[name='role_ids']").each(function(index, item) {
+			if($(this).attr('checked') == 'checked'){
+				$scope.user.role_ids.push($(this).val());
+			}
+		});
 		$http({
 			method: "post",
 			url: "/meedesidy/user/save",
 			data: $.param($scope.user),
 			headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function(resp){
-			console.info(resp);
-			if(resp.id){
+		}).then(function success_cb(resp){
+			if(resp.data){
 				$state.go("user");
-			}
+			};
+		}, function error_cb(resp){
+			if(resp.status == 500){
+				alert("保存失败");
+			};
 		});
 	};
 

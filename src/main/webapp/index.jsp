@@ -25,6 +25,7 @@
 		<script src="static/js/controller/roleController.js"></script>
 		<script src="static/filter/angular-filter.js"></script>
 		<script src="static/js/service/pageQuery.js"></script>
+		<script src="static/js/module.js"></script>
 
 		<link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />		
 		<link rel="stylesheet" href="static/css/bootstrap/bootstrap-reset.css">
@@ -35,6 +36,12 @@
 		<link rel="stylesheet" href="static/css/clndr.css" />
 		<title></title>
 	</head>
+	<style>
+		.btn-shallow { background-color: #ccc; border-color: #ccc }
+		.btn-shallow button:hove { background-color: #ccc; border-color: #ccc }
+		.btn-middle { background-color: #909090; border-color: #909090 }
+		.btn-deep { background-color: #676767; border-color: #676767 }
+	</style>
 	<body ng-app='meedesidy'>
 		<section>
 			<!-- head start -->
@@ -75,12 +82,13 @@
 	      </section>
 	      <!-- main context -->
 	      <footer class="site-footer">
-	        <div class="text-center">2013 &copy; Olive Admin by 
+	        <div class="text-center">2017 &copy; Olive Admin by 
 	          <a href="" target="_blank">Olive Enterprise</a>
 	          <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 	        </div>
 	      </footer>
 		</section>
+		<%@include file="modal.jsp" %>
 	</body>
 	<script> 
 		$(function(){
@@ -88,4 +96,5 @@
 			$(".wrapper").css('min-height',minHeight);
 		});
 	</script>
+	
 </html>

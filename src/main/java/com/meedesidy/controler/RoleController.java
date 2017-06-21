@@ -4,12 +4,15 @@ import com.meedesidy.entity.BaseEntity;
 import com.meedesidy.entity.Role;
 import com.meedesidy.service.BaseService;
 import com.meedesidy.service.IRoleService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import java.lang.reflect.Proxy;
@@ -37,11 +40,16 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping(value = "save")
-	public @ResponseBody Object saveObject(@Valid Role entity, BindingResult result){
+	public @ResponseBody Object saveObject(@Valid Role entity, BindingResult result, HttpServletResponse resp){
 		if(result.hasErrors()){
-			return "error";
+			return result.getAllErrors().toString();
 		}
-		return super.save(entity);
+		try {
+			return super.save(entity);
+		} catch (Exception e) {
+			resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return "保存出错";
+		}
 	}
 
 	@Override

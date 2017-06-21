@@ -17,4 +17,6 @@ public interface BaseDao {
 	public int update(BaseEntity entity);
 
 	public List<BaseEntity> query(BaseEntity entity);
+	
+	public int del(int[] ids);
 }
