@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.meedesidy.dao.BaseDao;
 import com.meedesidy.entity.BaseEntity;
-import com.meedesidy.entity.Menu;
-import com.meedesidy.entity.User;
 import com.meedesidy.service.BaseService;
 
 public abstract class BaseServiceImpl implements BaseService{
@@ -29,7 +27,7 @@ public abstract class BaseServiceImpl implements BaseService{
 	}
 	
 	@Override
-	public Object save(BaseEntity entity) {
+	public Object save(BaseEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 		if(null == entity.id){
 			getDao().add(entity);
@@ -43,6 +41,12 @@ public abstract class BaseServiceImpl implements BaseService{
 	public List<BaseEntity> query(BaseEntity entity) {
 		// TODO Auto-generated method stub
 		return getDao().query(entity);
+	}
+	
+	@Override
+	public Object del(int[] ids) {
+		// TODO Auto-generated method stub
+		return getDao().del(ids);
 	}
 	
 	public abstract BaseDao getDao();

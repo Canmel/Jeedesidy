@@ -3,6 +3,9 @@ package com.meedesidy.controler;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,11 +43,17 @@ public class MenuController extends BaseController {
 	}
 	
 	@RequestMapping(value="save")
-	public @ResponseBody Object save(Menu entity){
+	public @ResponseBody Object save(Menu entity, HttpServletResponse resp){
 		if(entity.getResouce() == null){
 			entity.setPid(null);
+			return "参数错误";
 		}
-		return super.save(entity);
+		try {
+			return super.save(entity);
+		} catch (Exception e) {
+			resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return "保存失败";
+		}
 	}
 	
 	@Override

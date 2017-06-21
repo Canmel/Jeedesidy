@@ -3,8 +3,6 @@ package com.meedesidy.service;
 import java.util.List;
 
 import com.meedesidy.entity.BaseEntity;
-import com.meedesidy.entity.Menu;
-import com.meedesidy.entity.User;
 
 public interface BaseService {
 
@@ -14,8 +12,10 @@ public interface BaseService {
 
 	public Object get(BaseEntity entity);
 
-	public Object save(BaseEntity entity);
+	public Object save(BaseEntity entity) throws Exception;
 
 	public List<BaseEntity> query(BaseEntity entity);
+	
+	public Object del(int[] ids) throws Exception;
 
 }

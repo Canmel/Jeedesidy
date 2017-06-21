@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.meedesidy.service.BaseService;
 import com.meedesidy.entity.BaseEntity;
 import com.meedesidy.entity.PageQuery;
-import com.meedesidy.entity.User;
 
 public abstract class BaseController {
 	
@@ -35,6 +34,14 @@ public abstract class BaseController {
 		return getPath(getClass());
 	}
 	
+	public Object del(int[] ids) throws Exception {
+		return getService().del(ids);
+	}
+	
+	public Object get(BaseEntity entity) {
+		return getService().get(entity);
+	}
+	
 	public static String getPath(Class clazz) {
 		return basepage + "/"
 				+ clazz.getSimpleName().replace("Controller", "/").toLowerCase();
@@ -45,7 +52,7 @@ public abstract class BaseController {
 		return getService().getAll();
 	}
 
-	public Object save(BaseEntity entity) {
+	public Object save(BaseEntity entity) throws Exception{
 		// TODO Auto-generated method stub
 		return getService().save(entity);
 	}

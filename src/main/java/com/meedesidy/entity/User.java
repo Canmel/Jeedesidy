@@ -1,8 +1,6 @@
 package com.meedesidy.entity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -60,13 +58,11 @@ public class User extends BaseEntity {
 	public ArrayList<Role> getRoles() {
 		return roles;
 	}
-
-	private String showRoles() {
-		String result = "[";
-		for (Role role : roles) {
-			result += role.name;
-			result += ",";
-		}
-		return result += "]";
+	
+	public User(int id) {
+		this.id = id;
+	}
+	
+	public User() {
 	}
 }

@@ -20,8 +20,5 @@ meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
         templateUrl: 'pages/role/index.jsp',
         controller: 'role'
     });
-	
-	
-//	返回当前页面的url  $location.absUrl();   注入服务 $location 即可
 }]);
 
