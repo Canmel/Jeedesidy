@@ -1,35 +1,14 @@
 package com.meedesidy.entity.enumtype;
 
-public enum MenuType implements CodeBaseEnum{
-	TOPMENU(0, "一级菜单"),
-	SUBMENU(1, "二级菜单");
+public class MenuType extends BaseEnum{
+	public MenuType() {
+		// TODO Auto-generated constructor stub
+	}
 	
-	private int index;
+	public MenuType(int id, String code, String name ){
+		 super(id, code, name);
+	}
 	
-	private String name;
-	
-	private MenuType(int index, String name) {
-		this.index = index;
-		this.name = name;
-	}
-
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-    public int code() {
-        return this.index;
-    }
+	public static MenuType TOPMENU = new MenuType(1, "TOPMENU", "一级菜单");
+    public static MenuType SUBMENU = new MenuType(2, "SUBMENU", "二级菜单");
 }

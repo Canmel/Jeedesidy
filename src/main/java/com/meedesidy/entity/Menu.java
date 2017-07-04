@@ -10,7 +10,7 @@ public class Menu extends BaseEntity{
 	
 	public Integer pid;
 	
-	public MenuType type;
+	public MenuType menuType;
 
 	public List<Role> role;
 
@@ -22,12 +22,12 @@ public class Menu extends BaseEntity{
 		this.role = role;
 	}
 
-	public MenuType getType() {
-		return type;
+	public MenuType getMenuType() {
+		return menuType;
 	}
 
-	public void setType(MenuType type) {
-		this.type = type;
+	public void setMenuType(MenuType menuType) {
+		this.menuType = menuType;
 	}
 
 	public String getResouce() {

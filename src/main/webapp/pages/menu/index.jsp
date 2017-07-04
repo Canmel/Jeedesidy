@@ -19,7 +19,6 @@
 						<tr>
 							<th><i class="fa fa-bullhorn"></i>菜单名称</th>
 							<th class="hidden-phone"><i class="fa fa-question-circle"></i>地址</th>
-							<th><i class="fa fa-bookmark"></i>父级</th>
 							<th>菜单等级</th>
 							<th><i class="fa fa-bookmark"></i>创建时间</th>
 							<th>操作</th>
@@ -29,9 +28,8 @@
 						<tr ng-repeat="v in datas">
 							<td>{{v.name}}</td>
 							<td class="hidden-phone">{{v.resouce}}</td>
-							<td>{{v.pid}}</td>
-							<td>{{v.type == "TOPMENU" ? "一级菜单" : "二级菜单"}}</td>
-							<td>{{v.createdAt | datetime}}</td>
+							<td>{{v.menuType.name}}</td>
+							<td>{{v.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
 							<td>
 								<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
 								<button class="btn btn-primary btn-xs" ui-sref="editMenu({id:v.id})" ><i class="fa fa-pencil"></i></button>
