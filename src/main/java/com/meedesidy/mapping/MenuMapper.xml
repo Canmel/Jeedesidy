@@ -7,11 +7,13 @@
 		<result column="resouce" property="resouce" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="pid" property="pid" jdbcType="INTEGER" />
-		<result column="createAt" property="createAt" jdbcType="VARCHAR" />
-		<result column="type" property="type" jdbcType="VARCHAR"/>
+		<result column="createdAt" property="createdAt" jdbcType="VARCHAR" />
+		<association property="menuType" javaType="com.meedesidy.entity.enumtype.MenuType">
+			<id column="menuType" property="id" jdbcType="INTEGER"/>
+		</association>
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, name, resouce, remark, pid, createdAt, type
+		id, name, resouce, remark, pid, createdAt, menuType
 	</sql>
 	<select id="pageQuery" resultMap="Menu" parameterType="com.meedesidy.entity.Menu">
 		select
@@ -39,19 +41,19 @@
 		<trim suffixOverrides="," suffix=")" prefix="(">
 			<if test="name != null"> name, </if>
 			<if test="resouce != null"> resouce, </if>
-			<if test="createdAt != null"> createdAt, </if>
 			<if test="remark != null"> remark, </if>
 			<if test="pid != null"> pid, </if>
-			<if test="type != null"> type, </if>
+			<if test="menuType != null"> menuType.id, </if>
+			createdAt,
 		</trim>
 		values
 		<trim suffixOverrides="," suffix=")" prefix="(">
 			<if test="name != null"> #{name}, </if>
 			<if test="resouce != null"> #{resouce}, </if>
-			<if test="createdAt != null"> #{createdAt}, </if>
 			<if test="remark != null"> #{remark}, </if>
 			<if test="pid != null"> #{pid}, </if>
-			<if test="type != null"> #{type}, </if>
+			<if test="menuType != null"> #{menuType.id}, </if>
+			NOW(),
 		</trim>
 	</insert>
 	
@@ -63,7 +65,7 @@
 			<if test="createdAt != null"> createdAt = #{createdAt}, </if>
 			<if test="remark != null"> remark = #{remark}, </if>
 			<if test="pid != null"> pid = #{pid}, </if>
-			<if test="type != null"> type = #{type}, </if>
+			<if test="menuType != null"> menuType = #{menuType.id}, </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -75,6 +77,6 @@
 			`menu`
 		WHERE
 			1 = 1
-			<if test="type != null">and type = #{type}</if>
+		<if test="menuType != null">and menuType = #{menuType.id}</if>
 	</select>
 </mapper>

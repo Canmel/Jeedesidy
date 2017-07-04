@@ -49,7 +49,7 @@
 				<div class="sidebar-toggle-box">
 				  <div  data-placement="right" class="fa fa-bars tooltips"></div>
 				</div>
-        		<a href="pages/index.jsp" class="logo">Olive<span>Admin</span></a>
+        		<a href="pages/index.jsp" class="logo"><span>MEEDESIDY</span></a>
       		</header>
 			<!-- head end -->
 			<!-- BEGIN SIDEBAR -->

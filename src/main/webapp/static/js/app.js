@@ -1,5 +1,6 @@
 var meedesidy = angular.module('meedesidy', ['ui.router']);
 
+var test = "";
 meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	//	默认路由
 	$urlRouterProvider.otherwise('index');

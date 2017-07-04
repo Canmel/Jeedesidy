@@ -1,5 +1,7 @@
 package com.meedesidy.entity;
 
+import com.meedesidy.entity.enumtype.Status;
+
 public class BaseEntity {
 	public Integer id;
 
@@ -14,8 +16,10 @@ public class BaseEntity {
 	public int psize;// 每页显示记录数
 
 	public int ptotal;// 总计记录数
+	
+	public Status status;
 
-	public BaseEntity(Integer id, String name, String createdAt, String remark, int pindex, int psize, int ptotal) {
+	public BaseEntity(Integer id, String name, String createdAt, String remark, int pindex, int psize, int ptotal, Status status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +28,23 @@ public class BaseEntity {
 		this.pindex = pindex;
 		this.psize = psize;
 		this.ptotal = ptotal;
+		this.status = status;
+	}
+	
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public BaseEntity() {
@@ -44,14 +65,6 @@ public class BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getcreatedAt() {
-		return createdAt;
-	}
-
-	public void setcreatedAt(String createdAt) {
-		this.createdAt = createdAt;
 	}
 
 	public String getRemark() {

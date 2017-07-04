@@ -64,6 +64,7 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', func
 				'Content-Type' : 'application/x-www-form-urlencoded'
 			}
 		}).then(function(resp) {
+			console.info(resp.data.result);
 			$scope.datas = resp.data.result;
 		}), (function(resp) {
 			console.info(resp);
@@ -73,7 +74,9 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', func
 
 	//	提交保存表单
 	$scope.processForm = function() {
-		$scope.menu == {};
+		test = $scope.menu;
+		console.info($scope.menu);
+		return;
 		$http({
 			method : "post",
 			url : "/meedesidy/" + type + "/save",
@@ -94,7 +97,7 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', func
 		method : "post",
 		url : "/meedesidy/menu/query",
 		params : {
-			type : "TOPMENU"
+			'menuType.id' : "1"
 		},
 		headers : {
 			'Content-Type' : 'application/x-www-form-urlencoded'

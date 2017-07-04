@@ -12,6 +12,13 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="col-sm-2 control-label">密码</label>
+			<div class="col-sm-10">
+				<input type="password" class="form-control" name='name' ng-model="user.password" required >
+				<p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">请输入密码.</p>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="col-sm-2 control-label">年龄</label>
 			<div class="col-sm-10">
 				<input type="number" class="form-control" name="age" ng-model="user.age" required>

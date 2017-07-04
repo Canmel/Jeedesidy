@@ -8,41 +8,40 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import com.meedesidy.entity.enumtype.CodeBaseEnum;
+/**
+ * @author Clinton Begin
+ */
+public class EnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
 
-public class EnumTypeHandler<E extends Enum<?> & CodeBaseEnum> extends BaseTypeHandler<CodeBaseEnum> {
-	private Class<E> clazz;
-	
-	 public EnumTypeHandler(Class<E> enumType) {
-	        if (enumType == null)
-	            throw new IllegalArgumentException("Type argument cannot be null");
-	 
-	        this.clazz = enumType;
-	    }
-	
-	@Override
-	public void setNonNullParameter(PreparedStatement ps, int i, CodeBaseEnum parameter, JdbcType jdbcType)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		ps.setInt(i, parameter.code());
-	}
+  private final Class<E> type;
 
-	@Override
-	public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-		// TODO Auto-generated method stub
-		return CodeEnumUtil.codeOf(clazz, rs.getInt(columnName));
-	}
+  public EnumTypeHandler(Class<E> type) {
+    if (type == null) {
+      throw new IllegalArgumentException("Type argument cannot be null");
+    }
+    this.type = type;
+  }
 
-	@Override
-	public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		 return CodeEnumUtil.codeOf(clazz, rs.getInt(columnIndex));
-	}
+  @Override
+  public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    String s = rs.getString(columnName);
+    return s == null ? null : Enum.valueOf(type, s);
+  }
 
-	@Override
-	public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return CodeEnumUtil.codeOf(clazz, cs.getInt(columnIndex));
-	}
+  @Override
+  public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    String s = rs.getString(columnIndex);
+    return s == null ? null : Enum.valueOf(type, s);
+  }
 
+  @Override
+  public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    String s = cs.getString(columnIndex);
+    return s == null ? null : Enum.valueOf(type, s);
+  }
+
+@Override
+public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
+	// TODO Auto-generated method stub
+}
 }
