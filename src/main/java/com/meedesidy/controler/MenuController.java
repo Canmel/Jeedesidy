@@ -3,6 +3,7 @@ package com.meedesidy.controler;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meedesidy.entity.BaseEntity;
 import com.meedesidy.entity.Menu;
+import com.meedesidy.entity.enumtype.BaseEnum;
+import com.meedesidy.entity.enumtype.MenuType;
 import com.meedesidy.service.BaseService;
 import com.meedesidy.service.IMenuService;
 
@@ -45,7 +48,8 @@ public class MenuController extends BaseController {
 	}
 	
 	@RequestMapping(value="save")
-	public @ResponseBody Object save(Menu entity, HttpServletResponse resp){
+	public @ResponseBody Object save(Menu entity, HttpServletResponse resp, HttpServletRequest req){
+		buildEntityFromReq(req, entity);
 		if(entity.getResouce() == null){
 			entity.setPid(null);
 			return "参数错误";
@@ -53,6 +57,7 @@ public class MenuController extends BaseController {
 		try {
 			return super.save(entity);
 		} catch (Exception e) {
+			System.err.println(e);
 			resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			return "保存失败";
 		}
@@ -61,5 +66,10 @@ public class MenuController extends BaseController {
 	@Override
 	public BaseService getService() {
 		return menuService;
+	}
+	
+	private Menu buildEntityFromReq(HttpServletRequest req, Menu entity) {
+		entity.setMenuType((MenuType)BaseEnum.getEnumByInd(MenuType.class, Integer.parseInt(req.getParameter("menuType_id"))));
+		return entity;
 	}
 }

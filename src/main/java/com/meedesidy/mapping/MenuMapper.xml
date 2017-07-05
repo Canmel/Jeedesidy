@@ -43,7 +43,7 @@
 			<if test="resouce != null"> resouce, </if>
 			<if test="remark != null"> remark, </if>
 			<if test="pid != null"> pid, </if>
-			<if test="menuType != null"> menuType.id, </if>
+			<if test="menuType != null"> menuType, </if>
 			createdAt,
 		</trim>
 		values

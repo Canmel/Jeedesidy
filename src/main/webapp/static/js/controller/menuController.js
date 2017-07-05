@@ -11,9 +11,16 @@ meedesidy.config([ '$stateProvider', '$urlRouterProvider', function($stateProvid
 	});
 } ]);
 
-meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', function($scope, $http, $state, $stateParams) {
+meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pageQuery', function($scope, $http, $state, $stateParams, pageQuery) {
 	var type = 'menu';
-
+	
+	$scope.pageQuery = function(index) {
+		pageQuery.pageQuery(index,"menu",$scope).then(function(data) {
+			$scope.datas = data.result
+		},function(data){
+            alert(data)//错误时走这儿
+        });
+	}
     //	检查参数id
     if($stateParams.id){
         $http({
@@ -76,7 +83,7 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', func
 	$scope.processForm = function() {
 		test = $scope.menu;
 		console.info($scope.menu);
-		return;
+		console.info("来啊");
 		$http({
 			method : "post",
 			url : "/meedesidy/" + type + "/save",
@@ -106,8 +113,4 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', func
 		console.log(resp);
 		$scope.topMenus = resp
 	});
-
-
-
-
 } ]);

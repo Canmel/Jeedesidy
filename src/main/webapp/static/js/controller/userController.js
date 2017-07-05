@@ -11,7 +11,9 @@ meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 }]);
 
 meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'pageQuery' , function($scope, $http, $state, $stateParams, pageQuery) {
-//	检查参数id
+	pageQuery.pageQuery(1,23,4);
+//	servicetest.firstname;
+	//	检查参数id
 	if($stateParams.id){
 		$http({	
 			method: 'get',
