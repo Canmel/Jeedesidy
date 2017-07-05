@@ -9,7 +9,7 @@ meedesidy.service('pageQuery', function($http, $q) {
 	    }).success(function(resp) {
 //	    	在$q中，可以使用resolve方法，变成完成状态；使用reject方法，变成拒绝状态
 			d.resolve(resp);
-			$scope = resp.datas
+			$scope = resp
 		}).error(function(resp) {
             d.reject("error");
 		});

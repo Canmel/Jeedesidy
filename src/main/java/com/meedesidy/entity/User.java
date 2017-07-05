@@ -11,6 +11,16 @@ public class User extends BaseEntity {
 	public String remark;
 
 	public ArrayList<Role> roles;
+	
+	public int[] role_ids;
+	
+	public int[] getRole_ids() {
+		return role_ids;
+	}
+
+	public void setRole_ids(int[] role_ids) {
+		this.role_ids = role_ids;
+	}
 
 	@NotNull(message = "{user.age.null}")
 	public Integer age;

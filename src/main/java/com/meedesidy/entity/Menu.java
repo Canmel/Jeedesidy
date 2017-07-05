@@ -1,6 +1,7 @@
 package com.meedesidy.entity;
 
 import com.meedesidy.entity.enumtype.MenuType;
+import com.meedesidy.entity.enumtype.Status;
 
 import java.util.List;
 
@@ -46,4 +47,10 @@ public class Menu extends BaseEntity{
 		this.pid = pid;
 	}
 	
+	public Menu(int id){
+		this.id = id;
+	}
+	
+	public Menu() {
+	}
 }	

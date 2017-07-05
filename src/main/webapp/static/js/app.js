@@ -9,7 +9,7 @@ meedesidy.service('servicetest', ['$window',          //service方式
 		}
 	}
 ]);
-var test = "";
+var test = {};
 meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	//	默认路由
 	$urlRouterProvider.otherwise('index');

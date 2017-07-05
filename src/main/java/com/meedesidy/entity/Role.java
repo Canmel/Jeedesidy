@@ -1,16 +1,16 @@
 package com.meedesidy.entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Role extends BaseEntity{
-    private List<Menu> menu;
+    private ArrayList<Menu> menus;
 
-    public List<Menu> getMenu() {
-        return menu;
+    public ArrayList<Menu> getMenus() {
+        return menus;
     }
 
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
+    public void setMenus(ArrayList<Menu> menus) {
+        this.menus = menus;
     }
     
     public Role(Integer id) {

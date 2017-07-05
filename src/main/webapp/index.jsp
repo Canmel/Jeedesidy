@@ -26,7 +26,7 @@
 		<script src="static/filter/angular-filter.js"></script>
 		<script src="static/js/service/pageQuery.js"></script>
 		<script src="static/js/module.js"></script>
-
+		<script src="static/js/service/modal.js"></script>
 		<link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />		
 		<link rel="stylesheet" href="static/css/bootstrap/bootstrap-reset.css">
 		<link rel="stylesheet" href="static/font-awesome/css/font-awesome.css" />

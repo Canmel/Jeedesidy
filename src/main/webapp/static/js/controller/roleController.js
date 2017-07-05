@@ -44,6 +44,7 @@ meedesidy.controller('role', ['$scope', '$http', '$state', '$stateParams', funct
         }
     }).then(function (resp) {
         $scope.datas = resp.data.result;
+        console.info($scope.datas);
         $scope.total = resp.data.total;
         $scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
     });
@@ -67,16 +68,21 @@ meedesidy.controller('role', ['$scope', '$http', '$state', '$stateParams', funct
 
     //	提交保存表单
     $scope.processForm = function () {
-        $scope.role == {};
+        menu_ids = [];
+        $("input[name='menu']").each(function(index, item) {
+			if($(this).attr('checked') == 'checked'){
+				menu_ids.push($(this).val());
+			}
+		});
+        console.info(menu_ids);
         $http({
             method: "post",
             url: "/meedesidy/" + type + "/save",
             data: $.param($scope.role),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (resp) {
             console.info(resp);
+            alert();
             if (resp.id) {
                 $state.go("role");
             }
@@ -94,3 +100,17 @@ meedesidy.controller('role', ['$scope', '$http', '$state', '$stateParams', funct
         $scope.allMenus = resp
     });
 }]);
+
+meedesidy.filter('showMenu', function() {
+	return function(menus) {
+		var result = "["
+		$(menus).each(function(index, item) {
+			result += item.name;
+			result += ",";
+		});
+		if(result.length > 1){
+			result = result.substring(0, result.length - 1);
+		}
+		return result + "]";
+    }
+})
