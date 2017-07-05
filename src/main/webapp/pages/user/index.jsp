@@ -40,7 +40,7 @@
 				</table>
 				<div class="row">
 					<div class="col-lg-6">
-						<div ng-controller="PageCtrl">
+						<div>
 							<div class="dataTables_paginate paging_bootstrap pagination">
 								<ul>
 									<li ng-if="searchParams.pindex == 1" class="prev disabled">
