@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meedesidy.entity.BaseEntity;
 import com.meedesidy.entity.Menu;
+import com.meedesidy.entity.User;
 import com.meedesidy.entity.enumtype.BaseEnum;
 import com.meedesidy.entity.enumtype.MenuType;
 import com.meedesidy.service.BaseService;
@@ -45,6 +48,28 @@ public class MenuController extends BaseController {
 	@RequestMapping(value="query")
 	public @ResponseBody List<BaseEntity> query(Menu entity) {
 		return super.query(entity);
+	}
+	
+	@RequestMapping(value = "del")
+	public Object del(int[] ids, HttpServletResponse resp) {
+		try {
+			return super.del(ids);
+		} catch (Exception e) {
+			resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return "删除失败";
+		}
+	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+	public @ResponseBody Object delete(@PathVariable int id, HttpServletResponse resp) {
+		int[] ids = new int[1];
+		ids[0] = id;
+		try {
+			return super.del(ids);
+		} catch (Exception e) {
+			resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return "删除失败";
+		}
 	}
 	
 	@RequestMapping(value="save")

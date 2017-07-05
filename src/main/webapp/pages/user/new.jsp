@@ -45,7 +45,7 @@
 			<label class="col-sm-2 control-label">角色</label>
 			<div class="col-sm-10">
 				<div style="display: inline-flex; margin: 5px;" ng-repeat="v in allRole">
-					<input type="checkbox" class="checkbox" name="role_ids" value="{{v.id}}" ng-checked="isSelected(v.id)">
+					<input type="checkbox" class="checkbox" name="role_ids" ng-model="role_ids" value="{{v.id}}" ng-checked="isSelected(v.id)">
 					<label><span style="line-height: 30px;">{{v.name}}</span></label>
 				</div>
 			</div>

@@ -11,12 +11,12 @@ meedesidy.config([ '$stateProvider', '$urlRouterProvider', function($stateProvid
 	});
 } ]);
 
-meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pageQuery', function($scope, $http, $state, $stateParams, pageQuery) {
+meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pageQuery', 'moddalSevice', function($scope, $http, $state, $stateParams, pageQuery, moddalSevice) {
 	var type = 'menu';
 	
 	$scope.pageQuery = function(index) {
 		pageQuery.pageQuery(index,"menu",$scope).then(function(data) {
-			$scope.datas = data.result
+			query_callBack(data)
 		},function(data){
             alert(data)//错误时走这儿
         });
@@ -28,7 +28,10 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pag
             url: '/meedesidy/'+ type +'/get',
             params: {id: $stateParams.id}
         }).then(function(resp){
-            $scope.menu = resp.data
+            $scope.menu = resp.data;
+            if($scope.menu.menuType.id != undefined && $scope.menu.menuType.id != null){
+            	$scope.menu.menuType_id = $scope.menu.menuType.id
+            }
         }),(function(resp){
             console.error(resp);
         })
@@ -54,9 +57,7 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pag
 			'Content-Type' : 'application/x-www-form-urlencoded'
 		}
 	}).then(function(resp) {
-		$scope.datas = resp.data.result;
-		$scope.total = resp.data.total;
-		$scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
+		query_callBack(resp.data)
 	}), (function(resp) {
 		console.info(resp);
 	});
@@ -71,19 +72,24 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pag
 				'Content-Type' : 'application/x-www-form-urlencoded'
 			}
 		}).then(function(resp) {
-			console.info(resp.data.result);
-			$scope.datas = resp.data.result;
+			query_callBack(resp.data);
 		}), (function(resp) {
 			console.info(resp);
 		});
-
 	};
+	
+	$scope.delete = function(name, id) {
+		moddalSevice.confirm("是否删除"+name+"？","确认删除", '/meedesidy/menu/'+ id).then(function(data) {
+			pageQuery.pageQuery(1,"menu",$scope).then(function(result) {
+				query_callBack(result)
+			},function(result){
+	            alert(result)//错误时走这儿
+	        });
+		});
+	}
 
 	//	提交保存表单
 	$scope.processForm = function() {
-		test = $scope.menu;
-		console.info($scope.menu);
-		console.info("来啊");
 		$http({
 			method : "post",
 			url : "/meedesidy/" + type + "/save",
@@ -110,7 +116,12 @@ meedesidy.controller('menu', [ '$scope', '$http', '$state', '$stateParams', 'pag
 			'Content-Type' : 'application/x-www-form-urlencoded'
 		}
 	}).success(function(resp) {
-		console.log(resp);
 		$scope.topMenus = resp
 	});
+	
+	function query_callBack(data){
+		$scope.datas = data.result;
+		$scope.total = data.total;
+		$scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
+	}
 } ]);

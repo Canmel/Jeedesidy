@@ -26,7 +26,7 @@
 					<tbody>
 						<tr ng-repeat="v in datas">
 							<td>{{v.name}}</td>
-							<td class="hidden-phone">{{v.id}}</td>
+							<td class="hidden-phone">{{v.menus | showMenu}}</td>
 							<td>{{v.id}}</td>
 							<td>
 								<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>

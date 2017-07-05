@@ -31,7 +31,7 @@
 							<td>{{v.menuType.name}}</td>
 							<td>{{v.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
 							<td>
-								<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+								<button class="btn btn-danger btn-xs" ng-click="delete(v.name,v.id)"><i class="fa fa-trash-o"></i></button>
 								<button class="btn btn-primary btn-xs" ui-sref="editMenu({id:v.id})" ><i class="fa fa-pencil"></i></button>
 							</td>
 						</tr>
@@ -43,10 +43,10 @@
 							<div class="dataTables_paginate paging_bootstrap pagination">
 								<ul>
 									<li ng-if="searchParams.pindex == 1" class="prev disabled">
-										<a>← Previous</a>
+										<a>← 上一页</a>
 									</li>
 									<li ng-if="searchParams.pindex > 1" class="prev">
-										<a ng-click="pageQuery(searchParams.pindex - 1)">← Previous</a>
+										<a ng-click="pageQuery(searchParams.pindex - 1)">← 上一页</a>
 									</li>
 
 									<li ng-if="searchParams.pindex > 1">
@@ -60,10 +60,10 @@
 									</li>
 
 									<li ng-if="searchParams.pindex == searchParams.ptotal" class="next disabled">
-										<a>Next → </a>
+										<a>下一页 → </a>
 									</li>
 									<li ng-if="searchParams.pindex < searchParams.ptotal" class="next">
-										<a ng-click="pageQuery(searchParams.pindex + 1)">Next → </a>
+										<a ng-click="pageQuery(searchParams.pindex + 1)">下一页 → </a>
 									</li>
 								</ul>
 							</div>

@@ -6,7 +6,7 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 
-		<collection property="menu" javaType="ArrayList" column="{id = id}" select="getMenu" />
+		<collection property="menus" javaType="ArrayList" column="{id = id}" select="getMenu" />
 	</resultMap>
 
 	<resultMap id="menuMap" type="com.meedesidy.entity.Menu">
@@ -73,4 +73,19 @@
 		WHERE
 			1 = 1
 	</select>
+	
+	<insert id="saveMenu" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="Integer" keyProperty="id" order="AFTER">  
+	        SELECT LAST_INSERT_ID() 
+	    </selectKey>
+	    INSERT INTO role_menu (role_id,menu_id) VALUES 
+	    <foreach collection="menus" item="item" index="index" separator="," >  
+	        (#{role_id},#{item.id})  
+	    </foreach>  
+	</insert>
+	
+	<delete id="delMenu" parameterType="com.meedesidy.entity.Role">
+		DELETE FROM role_menu WHERE 1=1
+		AND role_id = #{id}
+	</delete>
 </mapper>

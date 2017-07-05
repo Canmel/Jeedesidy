@@ -11,8 +11,13 @@ meedesidy.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 }]);
 
 meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'pageQuery' , function($scope, $http, $state, $stateParams, pageQuery) {
-	pageQuery.pageQuery(1,23,4);
-//	servicetest.firstname;
+	$scope.pageQuery = function(index) {
+		pageQuery.pageQuery(index,"user",$scope).then(function(data) {
+			query_callBack(data)
+		},function(data){
+            alert(data)//错误时走这儿
+        });
+	}
 	//	检查参数id
 	if($stateParams.id){
 		$http({	
@@ -53,12 +58,6 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 //	设置分页查询默认参数
 	$scope.searchParams = { pindex: 1, psize: 10, name: null };
 	
-//	分页查询
-	$scope.pageQuery = function(pindex){
-		$scope.searchParams.pindex = pindex;
-		$scope.search();
-	};
-	
 //	查询
 	$scope.search = function() {
 				$http({
@@ -75,7 +74,6 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 	};
 	
 	$scope.delUser = function(param){
-		console.info(param.id);
 		$.confirm("确认删除？", function() {
 			$http.delete("/meedesidy/user/" + param.id).then(function (resp) {
 				$scope.search();
@@ -85,15 +83,18 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 	
 //	提交保存表单
 	$scope.processForm = function(){
-		$scope.user.roles = []
 		$scope.user.role_ids = []
 		$("input[name='role_ids']").each(function(index, item) {
 			if($(this).attr('checked') == 'checked'){
 				$scope.user.role_ids.push($(this).val());
 			}
 		});
+		delete $scope.user.roles;
+		$scope.user.status = 1;
+		delete $scope.user.createdAt;
+		console.info($.param($scope.user));
 		$http({
-			method: "post",
+			method: "POST",
 			url: "/meedesidy/user/save",
 			data: $.param($scope.user),
 			headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -115,20 +116,24 @@ meedesidy.controller('user', ['$scope', '$http', '$state', '$stateParams', 'page
 		data: $.param($scope.searchParams),
 		headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
 	}).then(function(resp){
-		$scope.datas = resp.data.result;
-		$scope.total = resp.data.total;
-		$scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
+		query_callBack(resp.data);
 	}),(function(resp){
 		console.info(resp);
 	});
-	$scope.total = $scope.total == null ? 0 : $scope.total
-	$scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
+	
+	
+	function query_callBack(data) {
+		$scope.datas = data.result;
+		$scope.total = data.total;
+		$scope.searchParams.ptotal = Math.ceil($scope.total / $scope.searchParams.psize);
+	}
+	
 }]);
 
 meedesidy.filter('showRole', function() {
-	return function(roles) {
+	return function(role) {
 		var result = "["
-		$(roles).each(function(index, item) {
+		$(role).each(function(index, item) {
 			result += item.name;
 			result += ",";
 		});
